@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint '**/*.{tsx,ts,jsx,js}' --config './.eslintrc.js' --fix-dry-run",
+    "format": "prettier --write '**/*.{tsx,ts,jsx,js}' --config './.prettierrc.js'",
     "start": "react-native start",
     "type-check": "tsc --noEmit",
     "prepare": "husky install",
