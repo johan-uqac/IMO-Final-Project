@@ -48,21 +48,6 @@ export type CurrentWeatherData = {
   }
 }
 
-type AstronomyData = {
-  astronomy: {
-    astro: {
-      sunrise: string
-      sunset: string
-      moonrise: string
-      moonset: string
-      moon_phase: string
-      moon_illumination: number
-      is_moon_up: number
-      is_sun_up: number
-    }
-  }
-}
-
 type HourlyWeatherData = {
   time_epoch: number
   time: string
@@ -158,6 +143,7 @@ export type FullWeatherWeekData = {
 } & CurrentWeatherData
 
 async function getWeather(cityName: string): Promise<FullWeatherWeekData> {
+  // eslint-disable-next-line no-useless-catch
   try {
     const weatherResponse = await fetch(
       `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${cityName}&aqi=yes&lang=fr`
@@ -177,7 +163,6 @@ async function getWeather(cityName: string): Promise<FullWeatherWeekData> {
       location: weatherData.location,
     }
   } catch (err) {
-    console.error('get weather', err)
     throw err
   }
 }
@@ -186,7 +171,7 @@ export default function useWeatherConditions({ cityName }: WeatherConditionsProp
   const mutation = useMutation<FullWeatherWeekData>({
     mutationFn: () => getWeather(cityName),
     onError: error => {
-      console.error(error)
+      throw error
     },
   })
 

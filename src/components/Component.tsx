@@ -12,7 +12,8 @@ export default function WeatherComponent() {
       const data = await weatherMutation.mutateAsync()
       setWeatherData(data)
     } catch (error) {
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore error.message is a string
       console.error('Error fetching weather data:', error.message)
     }
   }
@@ -27,13 +28,9 @@ export default function WeatherComponent() {
         <Text>Get Weather Data</Text>
       </TouchableOpacity>
 
-      {weatherMutation.isPending ? (
-        <Text>Loading...</Text>
-      ) : weatherMutation.isError ? (
-        <Text>Error: {weatherMutation.error?.message}</Text>
-      ) : weatherData ? (
-        <WeatherDisplay weatherData={weatherData} />
-      ) : null}
+      {weatherMutation.isPending && <Text>Loading...</Text>}
+      {weatherMutation.isError && <Text>Error: {weatherMutation.error?.message}</Text>}
+      {weatherData && <WeatherDisplay weatherData={weatherData} />}
     </>
   )
 }
@@ -56,9 +53,9 @@ function WeatherDisplay({ weatherData }: { weatherData: FullWeatherWeekData }) {
         style={{ marginTop: 24 }}
         showsHorizontalScrollIndicator={false}
       >
-        {forecast.forecastday.map((day: DailyWeatherData, index: number) => (
+        {forecast.forecastday.map((day: DailyWeatherData) => (
           <WeatherForecast
-            key={index}
+            key={day.date}
             day={day}
           />
         ))}
