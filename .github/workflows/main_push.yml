@@ -1,0 +1,10 @@
+name: Push Action on main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  linting:
+    uses: johan-uqac/IMO-Final-Project/.github/workflows/front_end_linting.yml@main
