@@ -1,79 +1,49 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Weather App
 
-# Getting Started
+This is a simple weather app that uses the WeatherAPI to get the current weather for a given city. The app is built using react-native.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+This project is done as the final project of the 2024 Winter semester mobile programming class at UQAC.
 
-## Step 1: Start the Metro Server
+## Installation
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+To program on Android you need to have your Android environment set up. You can follow the instructions [here](https://reactnative.dev/docs/environment-setup).
 
-To start Metro, run the following command from the _root_ of your React Native project:
+You also need to have Java installed on your computer, between version 17 and 21.
 
-```bash
-# using npm
-npm start
+To be able to do API calls, you'll need to create a .env file at the root of the project and add the following line to it:
 
-# OR using Yarn
-yarn start
+```TS
+WEATHER_API_KEY="your_api_key"
 ```
 
-## Step 2: Start your Application
+You can get an API key by creating an account on the [WeatherAPI website](https://www.weatherapi.com/).
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+Once you have your environment set up and your API key, you can run the following commands to start the app:
 
 ```bash
-# using npm
-npm run android
+yarn install
 
-# OR using Yarn
+# To run the app on an Android emulator
 yarn android
-```
 
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
+# To run the app on an iOS emulator
+npx pod-install
 yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Authors
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+<table>
+    <tbody>
+        <tr>
+            <td align="center"><a href="https://github.com/JohanCDev"><img src="https://avatars.githubusercontent.com/u/25590592?v=4" width="100px;" alt="JohanCDev"/><br/><sub><b>Johan Chrillesen</b></sub></a><br/></td>
+            <td align="center"><a href="https://github.com/LouisVilledieu"><img src="https://avatars.githubusercontent.com/u/72012406?v=4" width="100px;" alt="Louis Villedieu"/><br/><sub><b>Louis Villedieu</b></sub></a><br/></td>
+            <td align="center"><a href="https://github.com/MaximeHff"><img src="https://avatars.githubusercontent.com/u/70428762?v=4" width="100px;" alt="Maxime Hoffbeck"/><br/><sub><b>Maxime Hoffbeck</b></sub></a><br/></td>
+        </tr>
+    </tbody>
+</table>
 
-## Step 3: Modifying your App
+## 📝 License
 
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Copyright © 2023 - Johan CHRILLESEN, Maxime HOFFBECK, Louis VILLEDIEU.<br />
+This project is [privately](https://github.com/NoLoSay/NoLoApp/blob/main/LICENSE.md) licensed.

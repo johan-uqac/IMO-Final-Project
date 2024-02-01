@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { OPEN_METEO_API_KEY } from '@env'
+import { WEATHER_API_KEY } from '@env'
 
 type WeatherConditionsProps = {
   cityName: string
@@ -160,13 +160,13 @@ export type FullWeatherWeekData = {
 async function getWeather(cityName: string): Promise<FullWeatherWeekData> {
   try {
     const weatherResponse = await fetch(
-      `https://api.weatherapi.com/v1/current.json?key=${OPEN_METEO_API_KEY}&q=${cityName}&aqi=yes&lang=fr`
+      `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${cityName}&aqi=yes&lang=fr`
     )
 
     const weatherData = await weatherResponse.json()
 
     const weatherWeekResponse = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${OPEN_METEO_API_KEY}&q=${cityName}&days=7&lang=fr`
+      `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${cityName}&days=7&lang=fr`
     )
 
     const weatherWeekData = await weatherWeekResponse.json()
