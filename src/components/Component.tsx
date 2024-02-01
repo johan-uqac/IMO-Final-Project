@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import useWeatherConditions, { FullWeatherWeekData, DailyWeatherData } from './src/common/queries/weatherData'
+import useWeatherConditions, { FullWeatherWeekData, DailyWeatherData } from '../common/queries/weatherData'
 
 export default function WeatherComponent() {
   const [cityName, setCityName] = useState('')

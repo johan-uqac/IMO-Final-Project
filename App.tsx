@@ -1,7 +1,7 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Component from './Component'
+import Component from '@components/Component'
 
 export default function App() {
   const queryClient = new QueryClient()
