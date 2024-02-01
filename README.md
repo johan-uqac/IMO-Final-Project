@@ -46,4 +46,4 @@ yarn ios
 ## 📝 License
 
 Copyright © 2023 - Johan CHRILLESEN, Maxime HOFFBECK, Louis VILLEDIEU.<br />
-This project is under the [MIT License](https://github.com/johan-uqac/IMO-Final-Project/blob/main/LICENSE.md).
+This project is under the [MIT License](https://github.com/johan-uqac/IMO-Final-Project/blob/main/LICENSE).
