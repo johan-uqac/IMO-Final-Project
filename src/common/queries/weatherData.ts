@@ -41,8 +41,8 @@ export type CurrentWeatherData = {
   }
 }
 
-type HourlyWeatherData = {
-  time_epoch: number
+export type HourlyWeatherData = {
+  time_epoch: number // Time at GMT
   time: string
   temp_c: number
   is_day: number
@@ -123,7 +123,7 @@ async function getWeather(cityName: string): Promise<FullWeatherWeekData> {
   // eslint-disable-next-line no-useless-catch
   try {
     const weatherWeekResponse = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${cityName}&days=7&lang=fr`
+      `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${cityName}&days=8&aqi=yes&alerts=no`
     )
 
     const weatherWeekData = await weatherWeekResponse.json()
