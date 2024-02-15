@@ -60,41 +60,43 @@ function WeatherDisplay({ weatherData }: { weatherData: FullWeatherWeekData }) {
       <Text style={{ fontSize: 18 }}>
         ↓ {forecast.forecastday[0].day.mintemp_c.toFixed()}° ↑ {forecast.forecastday[0].day.maxtemp_c.toFixed()}°
       </Text>
-      <ScrollView
-        horizontal
-        style={{ marginTop: 24, borderRadius: 10, maxHeight: 130 }}
-        showsHorizontalScrollIndicator={false}
-      >
+      <ScrollView>
+        <ScrollView
+          horizontal
+          style={{ marginTop: 24, borderRadius: 10, maxHeight: 130 }}
+          showsHorizontalScrollIndicator={false}
+        >
+          <BlurView
+            style={{ flexDirection: 'column', borderRadius: 10, padding: 5 }}
+            blurType='light'
+            blurAmount={10}
+          >
+            <Text>Current day / hour</Text>
+            <View style={{ flexDirection: 'row', marginTop: 8 }}>
+              {forecast.forecastday[0].hour.map((hour: HourlyWeatherData) => (
+                <HourForecast
+                  key={hour.time_epoch}
+                  hour={hour}
+                />
+              ))}
+            </View>
+          </BlurView>
+        </ScrollView>
+
         <BlurView
-          style={{ flexDirection: 'column', borderRadius: 10, padding: 5 }}
+          style={{ flexDirection: 'column', borderRadius: 10, width: '100%', padding: 5, marginTop: 24 }}
           blurType='light'
           blurAmount={10}
         >
-          <Text>Current day / hour</Text>
-          <View style={{ flexDirection: 'row', marginTop: 8 }}>
-            {forecast.forecastday[0].hour.map((hour: HourlyWeatherData) => (
-              <HourForecast
-                key={hour.time_epoch}
-                hour={hour}
-              />
-            ))}
-          </View>
+          {forecast.forecastday.slice(1).map((day: DailyWeatherData) => (
+            <WeatherForecast
+              key={day.date_epoch}
+              day={day}
+              tz={location.tz_id}
+            />
+          ))}
         </BlurView>
       </ScrollView>
-
-      <BlurView
-        style={{ flexDirection: 'column', borderRadius: 10, width: '100%', padding: 5, marginTop: 24 }}
-        blurType='light'
-        blurAmount={10}
-      >
-        {forecast.forecastday.slice(1).map((day: DailyWeatherData) => (
-          <WeatherForecast
-            key={day.date_epoch}
-            day={day}
-            tz={location.tz_id}
-          />
-        ))}
-      </BlurView>
     </View>
   )
 }
@@ -130,7 +132,7 @@ function HourForecast({ hour }: { hour: HourlyWeatherData }) {
 
 function WeatherForecast({ day, tz }: { day: DailyWeatherData; tz: string }) {
   const { date, day: dayData } = day
-  const forecastDate = moment.tz(date, tz).format('ddd.')
+  const forecastDate = new Date(date).toLocaleDateString('fr-FR', { weekday: 'short' })
 
   return (
     <View
@@ -140,14 +142,14 @@ function WeatherForecast({ day, tz }: { day: DailyWeatherData; tz: string }) {
         flexDirection: 'row',
       }}
     >
-      <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 24 }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', marginRight: 24, flex: 1 }}>
         {forecastDate.charAt(0).toUpperCase() + forecastDate.slice(1)}
       </Text>
       <Image
         source={{ uri: dayData.condition.icon.replace('//', 'https://') }}
-        style={{ width: 42, height: 42, marginRight: 42 }}
+        style={{ width: 42, height: 42, marginRight: 42, flex: 1 }}
       />
-      <Text style={{ fontSize: 18, marginRight: 24 }}>
+      <Text style={{ fontSize: 18, marginRight: 24, flex: 3 }}>
         ↓ {dayData.mintemp_c.toFixed()}° ↑ {dayData.maxtemp_c.toFixed()}°
       </Text>
     </View>
