@@ -1,7 +1,7 @@
 import React from 'react'
 import 'react-native-gesture-handler'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import Component from '@components/Component'
+import Component from '@screens/WeatherLocationPage'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 

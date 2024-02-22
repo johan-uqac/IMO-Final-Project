@@ -12,10 +12,11 @@ import {
 import HourForecastWidget from 'src/Widgets/HourForcastWidget'
 import DaysForecastWidget from 'src/Widgets/DaysForecastWidget'
 import HeaderWidget from 'src/Widgets/HeaderWidget'
+import { LargeWidget, LineWidgets } from 'src/examples/WidgetExamples'
 import getColorWithWeatherCode from '../common/reducers/getColorWithWeatherCode'
 import useWeatherConditions, { FullWeatherWeekData } from '../common/queries/weatherData'
 
-export default function WeatherComponent() {
+export default function WeatherLocationPage() {
   const [cityName, setCityName] = useState('')
   const weatherMutation = useWeatherConditions({ cityName })
   const [weatherData, setWeatherData] = useState<FullWeatherWeekData | undefined>()
@@ -70,6 +71,8 @@ function WeatherDisplay({ weatherData }: { weatherData: FullWeatherWeekData }) {
       <ScrollView>
         <HourForecastWidget currentDayHourForecast={forecast.forecastday[0].hour} />
         <DaysForecastWidget forecastDay={forecast.forecastday} />
+        <LineWidgets />
+        <LargeWidget />
       </ScrollView>
     </View>
   )
