@@ -8,6 +8,3 @@ on:
 jobs:
   linting:
     uses: johan-uqac/IMO-Final-Project/.github/workflows/front_end_linting.yml@main
-
-  optimization:
-    uses: johan-uqac/IMO-Final-Project/.github/workflows/optimize_images.yml@main
