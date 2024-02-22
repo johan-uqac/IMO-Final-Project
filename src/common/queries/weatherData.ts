@@ -123,7 +123,7 @@ async function getWeather(cityName: string): Promise<FullWeatherWeekData> {
   // eslint-disable-next-line no-useless-catch
   try {
     const weatherWeekResponse = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${cityName}&days=8&aqi=yes&alerts=no`
+      `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${cityName}&days=10&aqi=yes&alerts=no`
     )
 
     const weatherWeekData = await weatherWeekResponse.json()

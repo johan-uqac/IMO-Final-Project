@@ -1,0 +1,79 @@
+import { BlurView } from '@react-native-community/blur'
+import React from 'react'
+import { Image, StyleSheet, Text, View } from 'react-native'
+import { DailyWeatherData } from 'src/common/queries/weatherData'
+
+type DaysWeatherForecastProps = {
+  day: DailyWeatherData
+}
+
+function DayWeatherForecast({ day }: DaysWeatherForecastProps) {
+  const { date, day: dayData } = day
+  const forecastDate = new Date(date).toLocaleDateString('fr-FR', { weekday: 'short' })
+
+  return (
+    <View style={styles.dayContainer}>
+      <Text style={styles.dayText}>{forecastDate.charAt(0).toUpperCase() + forecastDate.slice(1)}</Text>
+      <Image
+        source={{ uri: dayData.condition.icon.replace('//', 'https://') }}
+        style={styles.weatherIcon}
+      />
+      <Text style={styles.tempText}>
+        ↓ {dayData.mintemp_c.toFixed()}° ↑ {dayData.maxtemp_c.toFixed()}°
+      </Text>
+    </View>
+  )
+}
+
+type DaysForecastWidgetProps = {
+  forecastDay: DailyWeatherData[]
+}
+
+export default function DaysForecastWidget({ forecastDay }: DaysForecastWidgetProps) {
+  return (
+    <BlurView
+      style={styles.container}
+      blurType='light'
+      blurAmount={10}
+    >
+      {forecastDay.slice(1).map((day: DailyWeatherData) => (
+        <DayWeatherForecast
+          key={day.date_epoch}
+          day={day}
+        />
+      ))}
+    </BlurView>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    borderRadius: 10,
+    width: '100%',
+    padding: 5,
+    marginTop: 24,
+  },
+  dayContainer: {
+    marginRight: 12,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  dayText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 24,
+    flex: 1,
+  },
+  weatherIcon: {
+    width: 42,
+    height: 42,
+    marginRight: 42,
+    flex: 1,
+  },
+  tempText: {
+    fontSize: 18,
+    marginRight: 24,
+    flex: 3,
+  },
+})
