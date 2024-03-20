@@ -10,28 +10,18 @@ type HourForecastProps = {
 function HourForecast({ hour }: HourForecastProps) {
   const hourArray = hour.time.split(' ')
   const forecastHour = hourArray[1].split(':')[0]
+  const currentHour = new Date().getHours()
+  const finalText =
+    currentHour === Number(forecastHour) ? 'Now' : `${forecastHour.length === 1 ? '0' : ''} ${forecastHour} h`
 
   return (
-    <View style={{ marginRight: 12, alignItems: 'center' }}>
-      <Text
-        style={{
-          fontSize: 16,
-          fontWeight: 'bold',
-        }}
-      >
-        {(forecastHour.length === 1 ? '0' : '') + forecastHour} h
-      </Text>
+    <View style={styles.hourForecastContainer}>
+      <Text style={styles.hourForecastHourText}>{finalText}</Text>
       <Image
         source={{ uri: hour.condition.icon.replace('//', 'https://') }}
-        style={{ width: 50, height: 50 }}
+        style={styles.hourForecastIcon}
       />
-      <Text
-        style={{
-          fontSize: 18,
-        }}
-      >
-        {hour.temp_c.toFixed()}°
-      </Text>
+      <Text style={styles.hourForecastTempText}>{hour.temp_c.toFixed()}°</Text>
     </View>
   )
 }
@@ -42,17 +32,16 @@ type HourForecastWidgetProps = {
 
 export default function HourForecastWidget({ currentDayHourForecast }: HourForecastWidgetProps) {
   return (
-    <ScrollView
-      horizontal
+    <BlurView
       style={styles.container}
-      showsHorizontalScrollIndicator={false}
+      blurType='light'
+      blurAmount={10}
     >
-      <BlurView
-        style={styles.blurview}
-        blurType='light'
-        blurAmount={10}
+      <Text>Current day / hour</Text>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
       >
-        <Text>Current day / hour</Text>
         <View style={styles.hourContainer}>
           {currentDayHourForecast.map((hour: HourlyWeatherData) => (
             <HourForecast
@@ -61,18 +50,15 @@ export default function HourForecastWidget({ currentDayHourForecast }: HourForec
             />
           ))}
         </View>
-      </BlurView>
-    </ScrollView>
+      </ScrollView>
+    </BlurView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 24,
-    borderRadius: 10,
     maxHeight: 130,
-  },
-  blurview: {
     flexDirection: 'column',
     borderRadius: 10,
     padding: 5,
@@ -80,5 +66,20 @@ const styles = StyleSheet.create({
   hourContainer: {
     flexDirection: 'row',
     marginTop: 8,
+  },
+  hourForecastContainer: {
+    marginRight: 12,
+    alignItems: 'center',
+  },
+  hourForecastHourText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  hourForecastIcon: {
+    width: 50,
+    height: 50,
+  },
+  hourForecastTempText: {
+    fontSize: 18,
   },
 })
