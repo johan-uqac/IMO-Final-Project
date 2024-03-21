@@ -14,7 +14,7 @@ function HourForecast({ hour }: HourForecastProps) {
   const forecastHour = hourArray[1].split(':')[0]
   const currentHour = new Date().getHours()
   const finalText =
-    currentHour === Number(forecastHour) ? 'Now' : `${forecastHour.length === 1 ? '0' : ''} ${forecastHour} h`
+    currentHour === Number(forecastHour) ? 'Maint.' : `${forecastHour.length === 1 ? '0' : ''} ${forecastHour} h`
   const iconData: HourIconData = getHourIcon({ conditionText: hour.condition.text, isDay: Boolean(hour.is_day) })
 
   return (
