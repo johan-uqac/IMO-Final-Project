@@ -1,6 +1,7 @@
 import { BlurView } from '@react-native-community/blur'
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import getHourIcon from 'src/common/helpers/getHourIcon'
 import { DailyWeatherData } from 'src/common/queries/weatherData'
 
 type DaysWeatherForecastProps = {
@@ -10,14 +11,17 @@ type DaysWeatherForecastProps = {
 function DayWeatherForecast({ day }: DaysWeatherForecastProps) {
   const { date, day: dayData } = day
   const forecastDate = new Date(date).toLocaleDateString('fr-FR', { weekday: 'short' })
+  const finalIcon = getHourIcon({ conditionText: dayData.condition.text, isDay: true })
 
   return (
     <View style={styles.dayContainer}>
       <Text style={styles.dayText}>{forecastDate.charAt(0).toUpperCase() + forecastDate.slice(1)}</Text>
-      <Image
-        source={{ uri: dayData.condition.icon.replace('//', 'https://') }}
-        style={styles.weatherIcon}
-      />
+      <View style={{ flex: 2 }}>
+        <Image
+          source={finalIcon.image()}
+          style={[styles.weatherIcon, finalIcon.style]}
+        />
+      </View>
       <Text style={styles.tempText}>
         ↓ {dayData.mintemp_c.toFixed()}° ↑ {dayData.maxtemp_c.toFixed()}°
       </Text>
@@ -69,7 +73,6 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     marginRight: 42,
-    flex: 1,
   },
   tempText: {
     fontSize: 18,
