@@ -96,8 +96,8 @@ export default function getHourIcon({ conditionText, isDay }: { conditionText: s
         isDay
           ? require('../../../assets/png/SunMax.png')
           : condition.includes('clear')
-          ? require('../../../assets/png/Moon.png')
-          : require('../../../assets/png/MoonStars.png'),
+            ? require('../../../assets/png/Moon.png')
+            : require('../../../assets/png/MoonStars.png'),
       style: {
         aspectRatio: 1,
       },
