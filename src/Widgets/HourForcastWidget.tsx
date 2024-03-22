@@ -1,7 +1,9 @@
+/* eslint-disable global-require */
 import { BlurView } from '@react-native-community/blur'
 import React from 'react'
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import { HourlyWeatherData } from 'src/common/queries/weatherData'
+import getHourIcon, { HourIconData } from '../common/helpers/getHourIcon'
 
 type HourForecastProps = {
   hour: HourlyWeatherData
@@ -12,14 +14,15 @@ function HourForecast({ hour }: HourForecastProps) {
   const forecastHour = hourArray[1].split(':')[0]
   const currentHour = new Date().getHours()
   const finalText =
-    currentHour === Number(forecastHour) ? 'Now' : `${forecastHour.length === 1 ? '0' : ''} ${forecastHour} h`
+    currentHour === Number(forecastHour) ? 'Maint.' : `${forecastHour.length === 1 ? '0' : ''} ${forecastHour} h`
+  const iconData: HourIconData = getHourIcon({ conditionText: hour.condition.text, isDay: Boolean(hour.is_day) })
 
   return (
     <View style={styles.hourForecastContainer}>
       <Text style={styles.hourForecastHourText}>{finalText}</Text>
       <Image
-        source={{ uri: hour.condition.icon.replace('//', 'https://') }}
-        style={styles.hourForecastIcon}
+        source={iconData.image()}
+        style={[styles.hourForecastIcon, iconData.style]}
       />
       <Text style={styles.hourForecastTempText}>{hour.temp_c.toFixed()}°</Text>
     </View>
@@ -76,8 +79,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   hourForecastIcon: {
-    width: 50,
-    height: 50,
+    height: 30,
+    aspectRatio: 1.5,
   },
   hourForecastTempText: {
     fontSize: 18,
