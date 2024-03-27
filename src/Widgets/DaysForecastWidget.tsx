@@ -3,6 +3,7 @@ import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import getHourIcon from 'src/common/helpers/getHourIcon'
 import { DailyWeatherData } from 'src/common/queries/weatherData'
+import ColoredLine from 'src/Components/ColoredLine'
 
 type DaysWeatherForecastProps = {
   day: DailyWeatherData
@@ -16,15 +17,22 @@ function DayWeatherForecast({ day }: DaysWeatherForecastProps) {
   return (
     <View style={styles.dayContainer}>
       <Text style={styles.dayText}>{forecastDate.charAt(0).toUpperCase() + forecastDate.slice(1)}</Text>
-      <View style={{ flex: 2 }}>
+      <View style={{ flex: 1 }}>
         <Image
           source={finalIcon.image()}
           style={[styles.weatherIcon, finalIcon.style]}
         />
       </View>
-      <Text style={styles.tempText}>
-        ↓ {dayData.mintemp_c.toFixed()}° ↑ {dayData.maxtemp_c.toFixed()}°
-      </Text>
+      <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={styles.tempText}>↓ {dayData.mintemp_c.toFixed()}°</Text>
+        <View style={{ marginHorizontal: 8, width: '50%' }}>
+          <ColoredLine
+            minTemp={parseInt(dayData.mintemp_c.toFixed(), 10)}
+            maxTemp={parseInt(dayData.maxtemp_c.toFixed(), 10)}
+          />
+        </View>
+        <Text style={styles.tempText}>↑ {dayData.maxtemp_c.toFixed()}°</Text>
+      </View>
     </View>
   )
 }
@@ -66,17 +74,15 @@ const styles = StyleSheet.create({
   dayText: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginRight: 24,
+    marginRight: 4,
     flex: 1,
   },
   weatherIcon: {
     width: 42,
     height: 42,
-    marginRight: 42,
+    marginRight: 4,
   },
   tempText: {
     fontSize: 18,
-    marginRight: 24,
-    flex: 3,
   },
 })
